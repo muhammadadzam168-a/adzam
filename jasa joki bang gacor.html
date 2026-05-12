@@ -1,0 +1,972 @@
+# Website Joki Mobile Legends & Free Fire — Modern Store Version
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joki Pro Elite</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      font-family:'Poppins',sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#050816;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .navbar{
+      background:rgba(0,0,0,.6);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .navbar-brand{
+      font-weight:800;
+      color:#00d9ff !important;
+      font-size:30px;
+    }
+
+    .nav-link{
+      color:white !important;
+      margin-left:12px;
+      transition:.3s;
+    }
+
+    .nav-link:hover{
+      color:#00d9ff !important;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      background:
+      linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+      url('https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1974&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      position:relative;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:500px;
+      height:500px;
+      background:#00d9ff;
+      filter:blur(180px);
+      opacity:.2;
+      right:-120px;
+      top:-120px;
+    }
+
+    .hero h1{
+      font-size:72px;
+      font-weight:800;
+      line-height:1.1;
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg,#00d9ff,#7b2cff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero p{
+      color:#d6d6d6;
+      font-size:18px;
+      margin-top:20px;
+    }
+
+    .btn-custom{
+      padding:14px 34px;
+      border:none;
+      border-radius:50px;
+      font-weight:700;
+      transition:.3s;
+    }
+
+    .btn-main{
+      background:linear-gradient(90deg,#00d9ff,#7b2cff);
+      color:white;
+      box-shadow:0 0 30px rgba(0,217,255,.4);
+    }
+
+    .btn-main:hover{
+      transform:translateY(-5px);
+      box-shadow:0 0 40px rgba(0,217,255,.7);
+    }
+
+    .glass-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      backdrop-filter:blur(12px);
+      overflow:hidden;
+      transition:.4s;
+    }
+
+    .glass-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 0 40px rgba(0,217,255,.15);
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:52px;
+      font-weight:800;
+      margin-bottom:60px;
+    }
+
+    .product-card{
+      padding:35px;
+      position:relative;
+      height:100%;
+    }
+
+    .badge-rank{
+      position:absolute;
+      top:18px;
+      right:18px;
+      background:linear-gradient(90deg,#00d9ff,#7b2cff);
+      padding:8px 16px;
+      border-radius:50px;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .product-card h3{
+      margin-top:18px;
+      font-weight:700;
+    }
+
+    .price{
+      font-size:34px;
+      font-weight:800;
+      color:#00d9ff;
+      margin-top:10px;
+    }
+
+    .star-price{
+      background:rgba(255,255,255,.05);
+      border-radius:16px;
+      padding:15px;
+      margin-top:20px;
+    }
+
+    .star-price div{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      color:#ddd;
+    }
+
+    .feature-box{
+      padding:40px;
+      text-align:center;
+      height:100%;
+    }
+
+    .feature-box i{
+      font-size:50px;
+      margin-bottom:20px;
+      color:#00d9ff;
+    }
+
+    .cart-box{
+      position:fixed;
+      right:20px;
+      bottom:100px;
+      width:320px;
+      z-index:999;
+      display:none;
+    }
+
+    .cart-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+    }
+
+    .cart-item{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:12px;
+      padding-bottom:12px;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .payment-method{
+      cursor:pointer;
+      padding:30px;
+      text-align:center;
+      transition:.3s;
+    }
+
+    .payment-method:hover{
+      border:1px solid #00d9ff;
+    }
+
+    .payment-method.active{
+      border:1px solid #00d9ff;
+      box-shadow:0 0 20px rgba(0,217,255,.3);
+    }
+
+    .payment-method img{
+      width:140px;
+      background:white;
+      padding:10px;
+      border-radius:14px;
+      margin-top:20px;
+    }
+
+    .checkout-box{
+      padding:35px;
+    }
+
+    .checkout-box input,
+    .checkout-box select{
+      background:rgba(255,255,255,.08);
+      border:none;
+      color:white;
+      padding:14px;
+      border-radius:14px;
+    }
+
+    .checkout-box input::placeholder{
+      color:#bbb;
+    }
+
+    footer{
+      margin-top:100px;
+      padding:50px 0;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,.08);
+      background:#02040f;
+    }
+
+    .wa-float{
+      position:fixed;
+      width:65px;
+      height:65px;
+      bottom:25px;
+      right:25px;
+      background:#25D366;
+      color:white;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+      z-index:999;
+      text-decoration:none;
+      box-shadow:0 0 25px rgba(37,211,102,.6);
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+      0%{transform:scale(1)}
+      50%{transform:scale(1.08)}
+      100%{transform:scale(1)}
+    }
+
+    @media(max-width:768px){
+      .hero h1{
+        font-size:44px;
+      }
+
+      .section-title{
+        font-size:34px;
+      }
+
+      .cart-box{
+        width:92%;
+        right:4%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">JOKI ELITE</a>
+
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ml">MLBB</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ff">Free Fire</a></li>
+        <li class="nav-item"><a class="nav-link" href="#checkout">Checkout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+
+      <div class="col-lg-7">
+        <h1>
+          Jasa <span class="gradient-text">Joki Rank</span><br>
+          Mobile Legends & Free Fire
+        </h1>
+
+        <p>
+          Push rank cepat, aman, trusted dan dikerjakan oleh player top global.
+          Sekarang sudah support checkout otomatis + keranjang modern.
+        </p>
+
+        <div class="mt-4 d-flex gap-3 flex-wrap">
+          <a href="#ml" class="btn btn-custom btn-main">Lihat Harga</a>
+          <a href="#checkout" class="btn btn-outline-light btn-custom">Checkout</a>
+        </div>
+      </div>
+
+      <div class="col-lg-5 text-center mt-5 mt-lg-0">
+        <img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" class="img-fluid" width="340">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="container py-5 mt-5">
+  <h2 class="section-title">Kenapa Pilih Kami?</h2>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="glass-card feature-box">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h4>Aman 100%</h4>
+        <p>Akun dijamin aman dan dikerjakan player profesional.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="glass-card feature-box">
+        <i class="fa-solid fa-bolt"></i>
+        <h4>Fast Process</h4>
+        <p>Proses express dengan winrate tinggi dan online 24 jam.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="glass-card feature-box">
+        <i class="fa-solid fa-headset"></i>
+        <h4>Admin Aktif</h4>
+        <p>Customer service cepat respon dan friendly.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MLBB -->
+<section class="container py-5" id="ml">
+  <h2 class="section-title">
+    Harga <span class="gradient-text">Mobile Legends</span>
+  </h2>
+
+  <div class="row g-4">
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Epic</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="90">
+
+        <h3>Epic → Legend</h3>
+
+        <div class="price">Rp 8.000 / Bintang</div>
+
+        <div class="star-price">
+          <div><span>5 Bintang</span><strong>Rp 40.000</strong></div>
+          <div><span>10 Bintang</span><strong>Rp 80.000</strong></div>
+          <div><span>15 Bintang</span><strong>Rp 120.000</strong></div>
+        </div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="ML Epic - Legend"
+          data-price="8000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Mythic</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" width="90">
+
+        <h3>Legend → Mythic</h3>
+
+        <div class="price">Rp 15.000 / Bintang</div>
+
+        <div class="star-price">
+          <div><span>5 Bintang</span><strong>Rp 75.000</strong></div>
+          <div><span>10 Bintang</span><strong>Rp 150.000</strong></div>
+          <div><span>20 Bintang</span><strong>Rp 300.000</strong></div>
+        </div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="ML Legend - Mythic"
+          data-price="15000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Immortal</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png" width="90">
+
+        <h3>Mythic → Immortal</h3>
+
+        <div class="price">Rp 25.000 / Bintang</div>
+
+        <div class="star-price">
+          <div><span>10 Bintang</span><strong>Rp 250.000</strong></div>
+          <div><span>20 Bintang</span><strong>Rp 500.000</strong></div>
+          <div><span>50 Bintang</span><strong>Rp 1.250.000</strong></div>
+        </div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="ML Mythic - Immortal"
+          data-price="25000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FREE FIRE -->
+<section class="container py-5" id="ff">
+  <h2 class="section-title">
+    Harga <span class="gradient-text">Free Fire</span>
+  </h2>
+
+  <div class="row g-4">
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Gold</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" width="90">
+
+        <h3>Gold → Platinum</h3>
+
+        <div class="price">Rp 5.000 / Rank</div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="FF Gold - Platinum"
+          data-price="5000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Heroic</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3522/3522093.png" width="90">
+
+        <h3>Platinum → Heroic</h3>
+
+        <div class="price">Rp 12.000 / Rank</div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="FF Platinum - Heroic"
+          data-price="12000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="glass-card product-card">
+        <div class="badge-rank">Grandmaster</div>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" width="90">
+
+        <h3>Heroic → Grandmaster</h3>
+
+        <div class="price">Rp 20.000 / Rank</div>
+
+        <button class="btn btn-main btn-custom w-100 mt-4 add-cart"
+          data-name="FF Heroic - Grandmaster"
+          data-price="20000">
+          Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="container py-5" id="checkout">
+  <h2 class="section-title">
+    Checkout <span class="gradient-text">Pembayaran</span>
+  </h2>
+
+  <div class="row g-4">
+
+    <div class="col-lg-7">
+      <div class="glass-card checkout-box">
+
+        <h4 class="mb-4">Form Pemesanan</h4>
+
+        <div class="mb-3">
+          <label>Nickname</label>
+          <input type="text" class="form-control mt-2" placeholder="Masukkan nickname">
+        </div>
+
+        <div class="mb-3">
+          <label>ID Game</label>
+          <input type="text" class="form-control mt-2" placeholder="Masukkan ID akun">
+        </div>
+
+        <div class="mb-3">
+          <label>Jumlah Bintang / Rank</label>
+          <select class="form-select mt-2">
+            <option>5 Bintang</option>
+            <option>10 Bintang</option>
+            <option>20 Bintang</option>
+            <option>50 Bintang</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label>Metode Pembayaran</label>
+
+          <div class="row g-3 mt-2">
+
+            <div class="col-md-4">
+              <div class="glass-card payment-method active">
+                <h5>DANA</h5>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=DANA-JOKI-ELITE">
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="glass-card payment-method">
+                <h5>GoPay</h5>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GOPAY-JOKI-ELITE">
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="glass-card payment-method">
+                <h5>QRIS</h5>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=QRIS-JOKI-ELITE">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="btn btn-main btn-custom w-100" id="payButton">
+          Bayar Sekarang
+        </button>
+
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="glass-card checkout-box">
+
+        <h4 class="mb-4">Keranjang</h4>
+
+        <div id="cartItems">
+          <p class="text-secondary">Belum ada item.</p>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h5>Total</h5>
+          <h4 id="totalPrice">Rp 0</h4>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section class="container py-5">
+  <h2 class="section-title">
+    Testimoni <span class="gradient-text">Customer</span>
+  </h2>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="glass-card p-4 h-100">
+        <h5>⭐⭐⭐⭐⭐</h5>
+        <p>
+          Cepat banget, semalam Mythic sekarang sudah Immortal.
+        </p>
+        <strong>- adzam MLBB</strong>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="glass-card p-4 h-100">
+        <h5>⭐⭐⭐⭐⭐</h5>
+        <p>
+          Trusted dan admin ramah banget.
+        </p>
+        <strong>- bsk adzam</strong>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="glass-card p-4 h-100">
+        <h5>⭐⭐⭐⭐⭐</h5>
+        <p>
+          Harga murah kualitas premium.
+        </p>
+        <strong>- murid adzam</strong>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <h3 class="gradient-text fw-bold">JOKI ELITE OFFICIAL</h3>
+
+    <p class="mt-3">
+      Jasa Joki Rank Mobile Legends & Free Fire Premium Indonesia.
+    </p>
+
+    <div class="d-flex justify-content-center gap-4 fs-2 mt-4">
+      <i class="fab fa-whatsapp"></i>
+      <i class="fab fa-instagram"></i>
+      <i class="fab fa-discord"></i>
+      <i class="fab fa-tiktok"></i>
+    </div>
+
+    <p class="mt-4 text-secondary">
+      © 2026 Joki Elite Official
+    </p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/6281234567890" class="wa-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // navbar scroll
+  window.addEventListener('scroll',function(){
+    const navbar=document.querySelector('.navbar');
+
+    if(window.scrollY>50){
+      navbar.style.background='rgba(0,0,0,.9)';
+    }else{
+      navbar.style.background='rgba(0,0,0,.6)';
+    }
+  });
+
+  // keranjang
+  let total=0;
+
+  const buttons=document.querySelectorAll('.add-cart');
+  const cartItems=document.getElementById('cartItems');
+  const totalPrice=document.getElementById('totalPrice');
+
+  buttons.forEach(button=>{
+    button.addEventListener('click',()=>{
+
+      const name=button.getAttribute('data-name');
+      const price=parseInt(button.getAttribute('data-price'));
+
+      total += price;
+
+      const item=document.createElement('div');
+      item.classList.add('cart-item');
+
+      item.innerHTML=`
+        <span>${name}</span>
+        <strong>Rp ${price.toLocaleString('id-ID')}</strong>
+      `;
+
+      if(cartItems.innerHTML.includes('Belum ada item')){
+        cartItems.innerHTML='';
+      }
+
+      cartItems.appendChild(item);
+
+      totalPrice.innerText=`Rp ${total.toLocaleString('id-ID')}`;
+
+      alert(name + ' berhasil ditambahkan ke keranjang');
+    });
+  });
+
+  // payment active
+  const methods=document.querySelectorAll('.payment-method');
+
+  methods.forEach(method=>{
+    method.addEventListener('click',()=>{
+
+      methods.forEach(m=>m.classList.remove('active'));
+      method.classList.add('active');
+
+    });
+  });
+
+  // checkout button
+  document.getElementById('payButton').addEventListener('click',()=>{
+
+    if(total <= 0){
+      alert('Masukkan item ke keranjang terlebih dahulu');
+      return;
+    }
+
+    alert('Pembayaran berhasil diproses! Admin akan menghubungi anda.');
+  });
+</script>
+
+<!-- DETAIL INFORMASI JOKI -->
+<div class="glass-card p-4 mt-4">
+
+  <h4 class="mb-4">
+    <i class="fa-solid fa-circle-info"></i>
+    Detail Layanan Joki
+  </h4>
+
+  <!-- ESTIMASI -->
+  <div class="info-box mb-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>
+        <i class="fa-solid fa-clock text-info"></i>
+        Estimasi Pengerjaan
+      </h5>
+
+      <span class="badge bg-info fs-6">
+        Fast Process
+      </span>
+    </div>
+
+    <p class="text-secondary mt-2 mb-0">
+
+      Estimasi pengerjaan tergantung jumlah bintang, rank,
+      dan tingkat kesulitan akun.
+
+      <br><br>
+
+      • 1 - 5 Bintang → 30 Menit - 1 Jam<br>
+      • 10 Bintang → 1 - 3 Jam<br>
+      • 20 Bintang → 3 - 6 Jam<br>
+      • 50 Bintang → 6 - 12 Jam<br>
+      • 100+ Bintang → Bisa 1 Hari
+
+      <br><br>
+
+      Proses bisa lebih cepat jika rank sedang mudah dimainkan
+      dan server game stabil.
+
+    </p>
+
+  </div>
+
+  <hr>
+
+  <!-- WIN RATE -->
+  <div class="info-box mb-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>
+        <i class="fa-solid fa-trophy text-warning"></i>
+        Win Rate
+      </h5>
+
+      <span class="badge bg-warning text-dark fs-6">
+        95% - 98%
+      </span>
+    </div>
+
+    <p class="text-secondary mt-2 mb-0">
+
+      Win rate tinggi karena akun dimainkan oleh player
+      berpengalaman dan top global.
+
+      <br><br>
+
+      Kami menggunakan strategi push rank aman tanpa cheat,
+      sehingga akun tetap aman dan performa stabil.
+
+      <br><br>
+
+      Faktor yang mempengaruhi win rate:
+      <br>
+
+      • Kondisi matchmaking<br>
+      • Hero yang tersedia<br>
+      • Koneksi server<br>
+      • Kondisi akun user<br>
+      • Rank lawan
+
+    </p>
+
+  </div>
+
+  <hr>
+
+  <!-- STATUS -->
+  <div class="info-box mb-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>
+        <i class="fa-solid fa-signal text-success"></i>
+        Status Pengerjaan
+      </h5>
+
+      <span class="badge bg-success fs-6">
+        Online 24 Jam
+      </span>
+    </div>
+
+    <p class="text-secondary mt-2 mb-0">
+
+      Customer dapat melihat status pengerjaan secara realtime.
+
+      <br><br>
+
+      Status yang tersedia:
+
+      <br><br>
+
+      <span class="badge bg-primary">
+        Menunggu
+      </span>
+      Pesanan sedang masuk antrean.
+
+      <br><br>
+
+      <span class="badge bg-warning text-dark">
+        Diproses
+      </span>
+      Akun sedang dimainkan oleh player.
+
+      <br><br>
+
+      <span class="badge bg-success">
+        Selesai
+      </span>
+      Target rank sudah tercapai.
+
+      <br><br>
+
+      <span class="badge bg-danger">
+        Dibatalkan
+      </span>
+      Pesanan dibatalkan customer/admin.
+
+    </p>
+
+  </div>
+
+  <hr>
+
+  <!-- BONUS -->
+  <div class="info-box">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>
+        <i class="fa-solid fa-gift text-danger"></i>
+        Bonus Premium
+      </h5>
+
+      <span class="badge bg-danger fs-6">
+        Special
+      </span>
+    </div>
+
+    <p class="text-secondary mt-2 mb-0">
+
+      Setiap pembelian joki mendapatkan bonus menarik
+      sesuai jumlah order.
+
+      <br><br>
+
+      Bonus yang tersedia:
+
+      <br><br>
+
+      • Free Protect Rank<br>
+      • Free MVP Match<br>
+      • Request Hero Favorit<br>
+      • Prioritas Pengerjaan<br>
+      • Progress Live via WhatsApp<br>
+      • Garansi Bintang Turun<br>
+      • Free Custom Nickname Match<br>
+      • Bonus Double Star Event
+
+      <br><br>
+
+      Bonus premium berlaku untuk paket tertentu
+      dan event spesial.
+
+    </p>
+
+  </div>
+
+</div>
+
+<style>
+  .info-box h5{
+    font-weight:700;
+  }
+
+  .info-box p{
+    line-height:1.9;
+    font-size:15px;
+  }
+
+  .info-box .badge{
+    padding:10px 14px;
+    border-radius:12px;
+  }
+</style>
